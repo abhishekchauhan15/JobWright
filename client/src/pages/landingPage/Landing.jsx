@@ -1,13 +1,14 @@
 import React from "react";
-import logo from "../../assets/images/logo.svg";
 import main from "../../assets/images/main.svg";
 import { Wrapper } from "./landing.styles";
+import {Logo} from "../../components/index"
+import { Link } from "react-router-dom";
 
 const Landing = () => {
   return (
     <Wrapper>
       <nav>
-        <img src={logo} alt="jobify" className="logo" />
+        <Logo/>
       </nav>
 
       <div className="container page">
@@ -17,11 +18,9 @@ const Landing = () => {
             Job <span>tracking</span> app
           </h1>
           <p>
-            baby bicycle rights VHS meh wayfarers bitters fixie. Kale chips
-            butcher locavore gluten-free hashtag man braid keffiyeh small batch
-            glossier hammock brooklyn vinyl palo santo. Fam woke mixtape
+            Track Your Job Search Process Now!
           </p>
-          <button className="btn btn-hero">Login/Register</button>
+          <Link to='/register' className="btn btn-hero">Login/Register</Link>
         </div>
         <img src={main} alt="job hunt" className="img main-img" />
       </div>
