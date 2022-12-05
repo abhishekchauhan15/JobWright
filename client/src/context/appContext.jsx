@@ -20,6 +20,7 @@ const AppProvider = ({ children }) => {
     dispatch({ type: DISPLAY_ALERT });
     clearAlert();
   };
+  
   const clearAlert = () => {
     setTimeout(() => {
       dispatch({ type: CLEAR_ALERT });
