@@ -47,9 +47,9 @@
 
 MERN Stack Application for tracking Job Search Process
 
-![Preview](./client/src/assets/images/preview.PNG)
-![Preview](./client/src/assets/images/preview2.PNG)
-![Preview](./client/src/assets/images/preview3.PNG)
+![Preview](./client/src/assets/images/preview.jpeg)
+![Preview](./client/src/assets/images/preview2.jpeg)
+![Preview](./client/src/assets/images/preview3.jpeg)
 
 ### Features
 
