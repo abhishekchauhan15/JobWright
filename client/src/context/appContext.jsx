@@ -9,14 +9,22 @@ import {
   LOGIN_USER_BEGIN,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_ERROR,
+  UPDATE_USER_BEGIN,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_ERROR,
   TOGGLE_SIDEBAR,
   LOGOUT_USER,
+  HANDLE_CHANGE,
+  CLEAR_VALUES,
+  CREATE_JOB_BEGIN,
+  CREATE_JOB_SUCCESS,
+  CREATE_JOB_ERROR,
 } from "./actions";
 import reducer from "./reducer";
 
 // ----------Local Storage------------- //
 const token = localStorage.getItem("token");
-const user = localStorage.getItem("user");
+const user = JSON.parse(localStorage.getItem("user"));
 const userLocation = localStorage.getItem("location");
 
 const initialState = {
@@ -26,9 +34,17 @@ const initialState = {
   alertType: "",
   user: user ? user : null,
   token: token,
-  userLocation: userLocation | "",
-  jobLocation: userLocation | "",
+  userLocation: userLocation || "",
   showSidebar: false,
+  isEditing: false, // edit vs create job
+  editJobId: "",
+  position: "",
+  company: "",
+  jobLocation: userLocation || "",
+  jobTypeOptions: ["full-time", "part-time", "remote", "internship"],
+  jobType: "full-time",
+  statusOptions: ["interview", "declined", "pending"],
+  status: "pending",
 };
 
 const AppContext = createContext();
@@ -36,6 +52,36 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
   // const [state, setState] = useState(initialState);
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  // -------------------axios---------------------- //
+  // creating Setup Instance with header for requests
+  const authFetch = axios.create({
+    baseURL: "/api/v1",
+  });
+  // request Interceptors: https://axios-http.com/docs/interceptors
+  authFetch.interceptors.request.use(
+    (config) => {
+      config.headers.common["Authorization"] = `Bearer ${state.token}`;
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+  // response Interceptors
+  authFetch.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      console.log(error.response);
+      // deal with 404(NOT_FOUND) error which means UNAUTHORIZED (no token)
+      if (error.response.status === 401) {
+        logoutUser();
+      }
+      return Promise.reject(error);
+    }
+  );
 
   // ----------Dispatching Actions------------- //
   const displayAlert = () => {
@@ -70,7 +116,7 @@ const AppProvider = ({ children }) => {
         type: REGISTER_USER_SUCCESS,
         payload: { user, token, location },
       });
-      addUserToLocalStorage(user, token, location);
+      addUserToLocalStorage({ user, token, location });
     } catch (error) {
       dispatch({
         type: REGISTER_USER_ERROR,
@@ -89,12 +135,35 @@ const AppProvider = ({ children }) => {
         type: LOGIN_USER_SUCCESS,
         payload: { user, token, location },
       });
-      addUserToLocalStorage(user, token, location);
+      addUserToLocalStorage({ user, token, location });
     } catch (error) {
       dispatch({
         type: LOGIN_USER_ERROR,
         payload: { msg: error.response.data.msg },
       });
+    }
+    clearAlert();
+  };
+
+  const updateUser = async (currentUser) => {
+    dispatch({ type: UPDATE_USER_BEGIN });
+    try {
+      const { data } = await authFetch.patch("/auth/updateUser", currentUser);
+      const { user, location, token } = data;
+
+      dispatch({
+        type: UPDATE_USER_SUCCESS,
+        payload: { user, location, token },
+      });
+      addUserToLocalStorage({ user, location, token });
+    } catch (error) {
+      // deal with user only if it's 400(BAD_REQUEST) as 404(NOT_FOUND) means UNAUTHORIZED (no token)
+      if (error.response.status !== 401) {
+        dispatch({
+          type: UPDATE_USER_ERROR,
+          payload: { msg: error.response.data.msg },
+        });
+      }
     }
     clearAlert();
   };
@@ -107,6 +176,45 @@ const AppProvider = ({ children }) => {
     removeUserFromLocalStorage();
   };
 
+  // for creating/updating a job
+  const handleChange = ({ name, value }) => {
+    dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
+  };
+  // for clearing job-form
+  const clearValues = () => {
+    dispatch({ type: CLEAR_VALUES });
+  };
+  const createJob = async () => {
+    dispatch({ type: CREATE_JOB_BEGIN });
+
+    try {
+      // first get the form-values from the state
+      const { position, company, jobLocation, jobType, status } = state;
+
+      await authFetch.post("/jobs", {
+        company,
+        position,
+        jobLocation,
+        jobType,
+        status,
+      });
+      dispatch({
+        type: CREATE_JOB_SUCCESS,
+      });
+
+      // call function instead clearValues()
+      dispatch({ type: CLEAR_VALUES });
+    } catch (error) {
+      if (error.response.status === 401) return;
+      dispatch({
+        type: CREATE_JOB_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+
+    clearAlert(); // at the end
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -116,6 +224,10 @@ const AppProvider = ({ children }) => {
         loginUser,
         toggleSidebar,
         logoutUser,
+        updateUser,
+        handleChange,
+        clearValues,
+        createJob,
       }}
     >
       {children}
