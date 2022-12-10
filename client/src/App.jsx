@@ -27,6 +27,8 @@ function App() {
           <Route path="profile" element={<Profile />} />
         </Route>
 
+          {/* Nested Routes */}
+
         <Route path="/register" element={<Register />}></Route>
         <Route path="/Landing" element={<Landing />}></Route>
         <Route path="*" element={<Error />}></Route>
