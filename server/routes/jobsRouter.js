@@ -7,7 +7,7 @@ import {
   getAllJobs,
   updateJob,
   showStats,
-} from "../controllers/jobsController.js";
+} from "../controllers/jobs/jobsController.js";
 
 router.route("/").post(createJob).get(getAllJobs);
 router.route("/stats").get(showStats); // must be before the dynamic-route (:id)
