@@ -4,7 +4,8 @@ import { useAppContext } from "../../../context/appContext";
 import Wrapper from "./DashboardFormPage.styles";
 
 const Profile = () => {
-  const { user, showAlert, displayAlert, updateUser, isLoading } =useAppContext();
+  const { user, showAlert, displayAlert, updateUser, isLoading } =
+    useAppContext();
 
   const [name, setName] = useState(user?.name);
   const [email, setEmail] = useState(user?.email);
