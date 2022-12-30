@@ -15,6 +15,10 @@
 <br>
 <br>
 
+![landing](https://user-images.githubusercontent.com/76480451/210046660-894b3928-ccc3-4efe-9160-33341549531a.png)
+![stats](https://user-images.githubusercontent.com/76480451/210046658-2809f5bb-6843-4719-91d0-9755474cb1cb.png)
+![allJobs](https://user-images.githubusercontent.com/76480451/210046652-800f5c65-fbdb-4689-bc09-f8b138b384c8.png)
+![addJobs](https://user-images.githubusercontent.com/76480451/210046661-44c6d3df-f7e3-4b61-a000-f10e045b9742.png)
 
 </div>
 
@@ -47,9 +51,6 @@
 
 MERN Stack Application for tracking Job Search Process
 
-![Preview](./client/src/assets/images/preview.jpeg)
-![Preview](./client/src/assets/images/preview2.jpeg)
-![Preview](./client/src/assets/images/preview3.jpeg)
 
 ### Features
 
@@ -72,7 +73,7 @@ MERN Stack Application for tracking Job Search Process
 
 | Email                 | Password |
 | --------------------- | -------- |
-| abdelrahman@gmail.com | 123123   |
+| amit@gmail.com | 123456   |
 
 #### Validation
 
