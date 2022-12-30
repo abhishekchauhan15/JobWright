@@ -1,5 +1,5 @@
 import Job from "../../models/Job.js";
-import { StatusCodes } from "http-status-codes";
+import StatusCodes from "http-status-codes";
 import { BadRequestError, NotFoundError } from "../../errors/index.js";
 import checkPermissions from "../../utils/checkPermissions.js";
 

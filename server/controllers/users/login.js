@@ -1,5 +1,5 @@
 import User from "../../models/user.js";
-import { StatusCodes } from "http-status-codes";
+import  StatusCodes  from "http-status-codes";
 import { BadRequestError, UnAuthenticatedError } from "../../errors/index.js";
 
 const login = async (req, res) => {

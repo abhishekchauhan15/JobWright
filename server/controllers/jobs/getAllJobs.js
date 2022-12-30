@@ -1,5 +1,5 @@
 import Job from "../../models/Job.js";
-import { StatusCodes } from "http-status-codes";
+import StatusCodes from "http-status-codes";
 
 const getAllJobs = async (req, res) => {
   const { status, jobType, sort, search } = req.query;

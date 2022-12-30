@@ -1,7 +1,7 @@
 import Job from "../../models/Job.js";
 import mongoose from "mongoose";
 import moment from "moment";
-import { StatusCodes } from "http-status-codes";
+import StatusCodes from "http-status-codes";
 
 // Aggregation pipeline
 const showStats = async (req, res) => {

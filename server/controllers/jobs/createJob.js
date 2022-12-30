@@ -1,6 +1,6 @@
 import Job from "../../models/Job.js";
-import { StatusCodes } from "http-status-codes";
-import { BadRequestError } from "../../errors/index.js";
+import StatusCodes from "http-status-codes";
+import {BadRequestError} from "../../errors/index.js";
 
 const createJob = async (req, res) => {
   const { position, company } = req.body;

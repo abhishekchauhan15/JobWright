@@ -10,19 +10,19 @@
 html {
   font-size: 100%;
 } /*16px*/
-
+  
 :root {
   /* colors */
-  --primary-50: #e0fcff;
-  --primary-100: #bef8fd;
-  --primary-200: #87eaf2;
-  --primary-300: #54d1db;
-  --primary-400: #38bec9;
-  --primary-500: #2cb1bc;
-  --primary-600: #14919b;
-  --primary-700: #0e7c86;
-  --primary-800: #0a6c74;
-  --primary-900: #044e54;
+  --primary-50:  #e0c3fc;
+  --primary-100: #ddbdfc;
+  --primary-200: #dab6fc;
+  --primary-300: #cbb2fe;
+  --primary-400: #bbadff;
+  --primary-500: #ada7ff;
+  --primary-600: #9fa0ff;
+  --primary-700: #8e94f2;
+  --primary-800: #8187dc;
+  --primary-900: #757bc8;
 
   /* grey */
   --grey-50: #f0f4f8;

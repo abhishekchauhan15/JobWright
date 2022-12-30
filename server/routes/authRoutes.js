@@ -1,8 +1,4 @@
-import {
-  register,
-  login,
-  updateUser,
-} from "../controllers/users/authController.js";
+import {register,login,updateUser} from "../controllers/users/authController.js";
 import express from "express";
 const router = express.Router();
 import authenticateUser from "../middlewares/auth.js";

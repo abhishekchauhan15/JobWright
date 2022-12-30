@@ -1,6 +1,6 @@
 import Job from "../../models/Job.js";
-import { StatusCodes } from "http-status-codes";
-import { NotFoundError } from "../../errors/index.js";
+import  StatusCodes  from "http-status-codes";
+import  {NotFoundError}  from "../../errors/index.js";
 import checkPermissions from "../../utils/checkPermissions.js";
 
 const deleteJob = async (req, res) => {

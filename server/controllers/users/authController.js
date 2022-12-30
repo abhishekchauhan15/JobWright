@@ -1,4 +1,4 @@
-import register from "./register`js";
+import register from "./register.js";
 import login from "./login.js";
 import updateUser from "./updateUser.js";
 

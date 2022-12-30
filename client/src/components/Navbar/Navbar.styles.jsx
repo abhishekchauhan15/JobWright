@@ -57,7 +57,7 @@ const Wrapper = styled.nav`
   .dropdown-btn {
     background: transparent;
     border-color: transparent;
-    color: var(--primary-500);
+    color: #ffff;
     letter-spacing: var(--letterSpacing);
     text-transform: capitalize;
     cursor: pointer;

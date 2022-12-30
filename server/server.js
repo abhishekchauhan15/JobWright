@@ -31,6 +31,16 @@ app.use("/api/v1/jobs", authenticateUser, jobsRouter);
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
-app.listen(port, () => {
-  console.log(`Server started at ${port}`);
-});
+const start = async () => {
+  try {
+    await connectDB(process.env.MONGO_URL);
+
+    // only connect to server if successfully-connected to DB
+    app.listen(port, () =>
+      console.log(`Server is listening on http://localhost:${port}`)
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+start();
